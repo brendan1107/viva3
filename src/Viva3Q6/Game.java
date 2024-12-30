@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
-    public void battle(Team team, Villain enemy) throws InterruptedException {
+    public void battle(Team team, Villain enemy)  {
         team.resetTeamHp();
         enemy.resetHp();
         Random rd = new Random();
@@ -16,7 +16,11 @@ public class Game {
         int round =1;
 
         while(true) {
-            Thread.sleep(600);
+            try{
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                continue;
+            }
 
             System.out.println("\nRound "+ round+": ");
             for(int i =0; i<3;i++) {
@@ -46,8 +50,11 @@ public class Game {
                     }
                 }
                 if(hero.rsMultiplier!=0) {
-                    Thread.sleep(500);
-                    hero.calculateDamage(enemy , hero.rsMultiplier);
+                    try{
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        continue;
+                    }                    hero.calculateDamage(enemy , hero.rsMultiplier);
                     double damage = hero.calculateDamage(enemy,hero.rsMultiplier);
                     enemy.getDamaged(damage);
                     System.out.println(hero.getName() +" dealt " + damage + " damage to " +enemy.getName());
@@ -63,8 +70,11 @@ public class Game {
                 break;
             }
 
-            Thread.sleep(300);
-            if(enemy.getCurrentCd()==1) {
+            try{
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                continue;
+            }            if(enemy.getCurrentCd()==1) {
                 double damage = enemy.getAttack();
                 team.getDamaged(damage);
                 System.out.println(enemy.getName() +" dealt " + damage +" damage to the team");
@@ -76,8 +86,11 @@ public class Game {
             System.out.println("Team's remaining HP: " +team.getTeamHP());
             System.out.println("Enemy's remaining HP: " +enemy.getHp());
 
-            Thread.sleep(300);
-
+            try{
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                continue;
+            }
             if(team.getTeamHP()==0) {
                 System.out.println("The enemy won!");
                 break;

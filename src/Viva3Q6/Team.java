@@ -63,23 +63,6 @@ public class Team {
         //• Create a method resetTeamHp() to reset the team’s hp.
     }
 
-    public String toString() {
-        String teamInfo = String.format("Team Name: %s\nHeroes:\n", getTeamName());
-
-        for (Hero hero : getHeroes()) {
-            teamInfo += String.format("%s\n", hero.toString());
-        }
-
-        return teamInfo;    }
-
-    String getTeamName() {
-        return teamName;
-    }
-
-     List<Hero> getHeroes() {
-        return heroList;
-    }
-
     double roundToHalf(double value) {
         return Math.round(value * 2) / 2.0;
     }

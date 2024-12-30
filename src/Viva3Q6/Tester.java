@@ -3,7 +3,7 @@ package Viva3Q6;
 import java.util.Random;
 
 public class Tester {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
 
         Hero molly = new Hero("Molly", "Water", 45, 20);
         Hero sean = new Hero("Sean", "Fire", 36, 24);
@@ -49,7 +49,7 @@ public class Tester {
         Villain randomVillain = villains[rd.nextInt(villains.length)];
 
         System.out.println("Villain: ");
-        System.out.println(randomVillain.toString());
+        System.out.println(randomVillain);
         System.out.println();
 
         game.battle(team, randomVillain);
