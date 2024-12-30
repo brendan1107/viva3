@@ -101,7 +101,7 @@ public class Hero {
         }
 
 
-        return Math.max(1, roundToHalf(this.attack * dominanceMultiplier *rsMultiplier - enemy.getDefense()));
+        return Math.max(1, roundToHalf(this.attack * dominanceMultiplier *rsMultiplier - enemy.getdefence()));
     }
 
     double roundToHalf(double value) {

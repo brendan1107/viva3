@@ -6,13 +6,13 @@ public class Villain {
     double maxHp;
     double hp;
     double attack;
-    double defense;
+    double defence;
     int initialCd;
     int currentCd;
     String weakness;
     String resistance;
 
-        Villain(String name, String element, double maxHp, double attack, double defense, int initialCd ) {
+        Villain(String name, String element, double maxHp, double attack, double defence, int initialCd ) {
         this.name = name;
         this.element = checkElement(element);
         if (this.element == null) {
@@ -20,7 +20,7 @@ public class Villain {
         }
         this.maxHp = roundToHalf(maxHp);
         this.attack = roundToHalf(attack);
-        this.defense = roundToHalf(defense);
+        this.defence = roundToHalf(defence);
         this.initialCd = initialCd;
 
         setWeakness();
@@ -78,8 +78,8 @@ public class Villain {
     double getAttack() {
         return attack;
     }
-    double getDefense() {
-        return defense;
+    double getdefence() {
+        return defence;
     }
     int getInitialCd() {
         return initialCd;
@@ -130,10 +130,10 @@ public class Villain {
                             "\nMax HP: %.1f" +
                             "\nHP: %.1f" +
                             "\nAttack: %.1f" +
-                            "\nDefense: %.1f\nCooldown: %d" +
+                            "\ndefence: %.1f\nCooldown: %d" +
                             "\nWeakness: %s" +
                             "\nResistance: %s",
-                    getName(), getElement(), getMaxHp(), getHp(), getAttack(), getDefense(), getCurrentCd(), getWeakness(), getResistance());
+                    getName(), getElement(), getMaxHp(), getHp(), getAttack(), getdefence(), getCurrentCd(), getWeakness(), getResistance());
     }
 
     double roundToHalf(double value) {
