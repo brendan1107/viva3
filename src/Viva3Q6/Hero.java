@@ -85,8 +85,8 @@ public class Hero {
     public String toString() {
         return String.format("\nName: %s" +
                         "\nElement: %s" +
-                        "\n HP: %d" +
-                        "\n Attack: %d"
+                        "\nHP: %d" +
+                        "\nAttack: %d"
                 , getName(), getElement(), getHP(), getAttack());
 
     }
