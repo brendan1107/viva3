@@ -12,10 +12,12 @@ public class Villain {
     String weakness;
     String resistance;
 
-
     Villain(String name, String element, int maxHp, int attack, int defense, int initialCd ) {
         this.name = name;
-        this.element = element;
+        this.element = checkElement(element);
+        if (this.element == null) {
+            throw new IllegalArgumentException("Invalid element: " + element);
+        }
         this.maxHp = maxHp;
         this.attack = attack;
         this.defense = defense;
@@ -26,6 +28,17 @@ public class Villain {
         this.hp = maxHp;
         this.currentCd = initialCd;
     }
+
+    String checkElement(String element) {
+        String[] predefinedElements = {"FIRE", "EARTH", "WATER", "LIGHT", "DARK"};
+        for (String ele : predefinedElements) {
+            if (element.equalsIgnoreCase(ele)) {
+                return element.toUpperCase();
+            }
+        }
+        return null;
+    }
+
     void setWeakness() {
         switch (getElement()) {
             case "FIRE" -> this.weakness = "WATER";

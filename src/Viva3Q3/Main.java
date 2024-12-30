@@ -123,7 +123,7 @@ class PetAdoptionCentre {
    
 }
 
-public class Viva3q3{
+public class Main{
 public static void main(String[] args) {
         PetAdoptionCentre centre = new PetAdoptionCentre();
 

@@ -5,24 +5,29 @@ public class Hero {
     String element;
     int hp;
     int attack;
-    String[] predefinedElements = {"FIRE", "EARTH", "WATER", "LIGHT", "DARK"};
     String weakness;
     String resistance;
+    int rsMultiplier;
 
     Hero(String name, String element, int hp, int attack) {
         this.name = name;
         this.element = checkElement(element);
+        if (this.element == null) {
+            throw new IllegalArgumentException("Invalid element: " + element);
+        }
         this.hp = hp;
         this.attack = attack;
+        this.rsMultiplier=0;
         setWeakness();
         setResistance();
     }
 
     String getElement() {
-        return element;
+        return element.toUpperCase();
     }
 
     String checkElement(String element) {
+        String[] predefinedElements = {"FIRE", "EARTH", "WATER", "LIGHT", "DARK"};
         for (String ele : predefinedElements) {
             if (element.equalsIgnoreCase(ele)) {
                 return element.toUpperCase();
@@ -34,6 +39,10 @@ public class Hero {
     //the weakness of an element is the element that
     // deals 1.5 times damage to them
     void setWeakness() {
+        if (getElement() == null) {
+            System.err.println("Error setting weakness: Element is null");
+            return;
+        }
         switch (getElement()) {
             case "FIRE" -> this.weakness = "WATER";
             case "WATER" -> this.weakness = "EARTH";
@@ -47,6 +56,11 @@ public class Hero {
     //if an element resist another, that means the other element
     // deals half the damage to an element
     void setResistance() {
+        if (getElement() == null) {
+            System.err.println("Error setting resistance: Element is null");
+            return;
+        }
+
         switch (getElement()) {
             case "FIRE" -> this.resistance = "EARTH"; //fire resist
             case "EARTH" -> this.resistance = "WATER";
@@ -77,9 +91,15 @@ public class Hero {
 
     }
 
-    void calculateDamage(Villain enemy, int rsMultiplier) {
+    int calculateDamage(Villain enemy, int rsMultiplier) {
+        double dominanceMultiplier = 1;
 
+        if(this.element.equalsIgnoreCase(enemy.getWeakness())) {
+            dominanceMultiplier =1.5;
+        } else if(this.element.equalsIgnoreCase(enemy.getResistance())) {
+            dominanceMultiplier = 0.5;
+        }
+
+        return Math.max(1, (int) Math.floor(this.attack * dominanceMultiplier *rsMultiplier - enemy.getDefense()));
     }
-
-
 }
