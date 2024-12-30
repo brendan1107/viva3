@@ -3,15 +3,14 @@ package Viva3Q6;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class Team {
 
     String teamName;
     List<Hero> deck;
     List<Hero> heroList = new ArrayList<>();
-    int teamMaxHP = 0;
-    int teamHP;
+    double teamMaxHP = 0;
+    double teamHP;
 
     Team(Hero[] heroes) {
         deck = new ArrayList<>(List.of(heroes));
@@ -39,22 +38,22 @@ public class Team {
 
 
 
-    int getTeamHP() {
+    double getTeamHP() {
         return teamHP;
     }
-    int getTeamMaxHP() {
+    double getTeamMaxHP() {
         return teamMaxHP;
     }
-    void setTeamHP(int teamHP) {
-        this.teamHP = teamHP;
+    void setTeamHP(double teamHP) {
+        this.teamHP = roundToHalf(teamHP);
     }
     List<Hero> getHeroList() {
         return heroList;
     }
 
-    void getDamaged(int damage) {
-        teamHP-=damage;
-        teamHP = Math.max(teamHP,0);
+    void getDamaged(double damage) {
+        damage = roundToHalf(damage);
+        teamHP = Math.max(0, roundToHalf(teamHP-damage));
 // calculate remaining hp of
 //the team after being attacked. If the remaining hp < 0, set the remaining hp to 0.
     }
@@ -79,5 +78,9 @@ public class Team {
 
      List<Hero> getHeroes() {
         return heroList;
+    }
+
+    double roundToHalf(double value) {
+        return Math.round(value * 2) / 2.0;
     }
 }

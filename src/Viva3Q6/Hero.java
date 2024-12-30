@@ -3,20 +3,20 @@ package Viva3Q6;
 public class Hero {
     String name;
     String element;
-    int hp;
-    int attack;
+    double hp;
+    double attack;
     String weakness;
     String resistance;
     int rsMultiplier;
 
-    Hero(String name, String element, int hp, int attack) {
+    Hero(String name, String element, double hp, double attack) {
         this.name = name;
         this.element = checkElement(element);
         if (this.element == null) {
             throw new IllegalArgumentException("Invalid element: " + element);
         }
-        this.hp = hp;
-        this.attack = attack;
+        this.hp = roundToHalf(hp);
+        this.attack = roundToHalf(attack);
         this.rsMultiplier=0;
         setWeakness();
         setResistance();
@@ -74,24 +74,24 @@ public class Hero {
         return name;
     }
 
-    int getHP() {
+    double getHP() {
         return hp;
     }
 
-    int getAttack() {
+    double getAttack() {
         return attack;
     }
 
     public String toString() {
-        return String.format("\nName: %s" +
+        return String.format("Name: %s" +
                         "\nElement: %s" +
-                        "\nHP: %d" +
-                        "\nAttack: %d"
+                        "\nHP: %.1f" +
+                        "\nAttack: %.1f"
                 , getName(), getElement(), getHP(), getAttack());
 
     }
 
-    int calculateDamage(Villain enemy, int rsMultiplier) {
+    double calculateDamage(Villain enemy, int rsMultiplier) {
         double dominanceMultiplier = 1;
 
         if(this.element.equalsIgnoreCase(enemy.getWeakness())) {
@@ -100,6 +100,12 @@ public class Hero {
             dominanceMultiplier = 0.5;
         }
 
-        return Math.max(1, (int) Math.floor(this.attack * dominanceMultiplier *rsMultiplier - enemy.getDefense()));
+
+        return Math.max(1, roundToHalf(this.attack * dominanceMultiplier *rsMultiplier - enemy.getDefense()));
+    }
+
+    double roundToHalf(double value) {
+        return Math.round(value * 2) / 2.0;
     }
 }
+

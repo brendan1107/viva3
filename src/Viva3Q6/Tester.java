@@ -39,8 +39,11 @@ public class Tester {
         team.formTeam();
 
         System.out.println("Heroes: ");
+        int count =1;
         for(Hero hero: team.getHeroList()) {
-            System.out.println(hero.toString());
+            System.out.println("Hero "+count);
+            System.out.println(hero.toString()+"\n");
+            count++;
         }
         System.out.println();
         Villain randomVillain = villains[rd.nextInt(villains.length)];

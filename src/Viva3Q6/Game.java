@@ -16,9 +16,9 @@ public class Game {
         int round =1;
 
         while(true) {
-            Thread.sleep(1000);
+            Thread.sleep(600);
 
-            System.out.println("\nRound"+ round+": ");
+            System.out.println("\nRound "+ round+": ");
             for(int i =0; i<3;i++) {
                 int random = rd.nextInt(5);
                 switch(random) {
@@ -48,7 +48,7 @@ public class Game {
                 if(hero.rsMultiplier!=0) {
                     Thread.sleep(500);
                     hero.calculateDamage(enemy , hero.rsMultiplier);
-                    int damage = hero.calculateDamage(enemy,hero.rsMultiplier);
+                    double damage = hero.calculateDamage(enemy,hero.rsMultiplier);
                     enemy.getDamaged(damage);
                     System.out.println(hero.getName() +" dealt " + damage + " damage to " +enemy.getName());
                     hero.rsMultiplier =0;
@@ -56,9 +56,16 @@ public class Game {
             }
             runestone.clear();
 
-            Thread.sleep(500);
+            if (enemy.getHp() == 0) {
+                System.out.println("Team's remaining HP: " + team.getTeamHP());
+                System.out.println("Enemy's remaining HP: " + enemy.getHp());
+                System.out.println("The team won!");
+                break;
+            }
+
+            Thread.sleep(300);
             if(enemy.getCurrentCd()==1) {
-                int damage = Math.max(1, enemy.getAttack());
+                double damage = enemy.getAttack();
                 team.getDamaged(damage);
                 System.out.println(enemy.getName() +" dealt " + damage +" damage to the team");
                 enemy.resetCd();
@@ -69,11 +76,7 @@ public class Game {
             System.out.println("Team's remaining HP: " +team.getTeamHP());
             System.out.println("Enemy's remaining HP: " +enemy.getHp());
 
-            Thread.sleep(500);
-            if (team.getTeamHP() == 0 && enemy.getHp() == 0) {
-                System.out.println("It's a draw!");
-                break;
-            }
+            Thread.sleep(300);
 
             if(team.getTeamHP()==0) {
                 System.out.println("The enemy won!");
@@ -84,4 +87,5 @@ public class Game {
             }
         }
     }
+
 }

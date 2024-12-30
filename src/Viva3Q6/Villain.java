@@ -3,29 +3,29 @@ package Viva3Q6;
 public class Villain {
     String name;
     String element;
-    int maxHp;
-    int hp;
-    int attack;
-    int defense;
+    double maxHp;
+    double hp;
+    double attack;
+    double defense;
     int initialCd;
     int currentCd;
     String weakness;
     String resistance;
 
-    Villain(String name, String element, int maxHp, int attack, int defense, int initialCd ) {
+        Villain(String name, String element, double maxHp, double attack, double defense, int initialCd ) {
         this.name = name;
         this.element = checkElement(element);
         if (this.element == null) {
             throw new IllegalArgumentException("Invalid element: " + element);
         }
-        this.maxHp = maxHp;
-        this.attack = attack;
-        this.defense = defense;
+        this.maxHp = roundToHalf(maxHp);
+        this.attack = roundToHalf(attack);
+        this.defense = roundToHalf(defense);
         this.initialCd = initialCd;
 
         setWeakness();
         setResistance();
-        this.hp = maxHp;
+        this.hp = roundToHalf(maxHp);
         this.currentCd = initialCd;
     }
 
@@ -69,16 +69,16 @@ public class Villain {
     String getElement() {
         return element;
     }
-    int getMaxHp() {
+    double getMaxHp() {
         return maxHp;
     }
-    int getHp() {
+    double getHp() {
         return hp;
     }
-    int getAttack() {
+    double getAttack() {
         return attack;
     }
-    int getDefense() {
+    double getDefense() {
         return defense;
     }
     int getInitialCd() {
@@ -93,46 +93,16 @@ public class Villain {
     String getResistance() {
         return resistance;
     }
-    void setName(String name) {
-        this.name = name;
-    }
-    void setElement(String element) {
-        this.element = element;
-    }
-    void setMaxHp(int maxHp) {
-        this.maxHp = maxHp;
-    }
-    void setHp(int hp) {
-        this.hp = hp;
-    }
-    void setAttack(int attack) {
-        this.attack = attack;
-    }
-    void setDefense(int defense) {
-        this.defense = defense;
-    }
-    void setInitialCd(int initialCd) {
-        this.initialCd = initialCd;
-    }
-    void setCurrentCd(int currentCd) {
+    void setHp(double hp) {
+        this.hp = roundToHalf(hp);
+    }void setCurrentCd(int currentCd) {
         this.currentCd = currentCd;
     }
-    void setWeakness(String weakness) {
-        this.weakness = weakness;
-    }
-    void setResistance(String resistance) {
-        this.resistance = resistance;
-    }
 
 
-    void getDamaged(int damage) {
-        if((getHp()-damage)<0) {
-            setHp(0);
-        } else {
-            setHp(getHp()-damage);
-        }
-// calculate remaining hp of
-//the enemy after being attacked. If the remaining hp < 0, set the remaining hp to 0.
+    void getDamaged(double damage) {
+        damage = roundToHalf(damage);
+        setHp(roundToHalf(Math.max(0, getHp() - damage)));
     }
 
     void resetHp() {
@@ -157,12 +127,16 @@ public class Villain {
     public String toString() {
             return String.format("Name: %s" +
                             "\nElement: %s" +
-                            "\nMax HP: %d" +
-                            "\nHP: %d" +
-                            "\nAttack: %d" +
-                            "\nDefense: %d\nCooldown: %d" +
+                            "\nMax HP: %.1f" +
+                            "\nHP: %.1f" +
+                            "\nAttack: %.1f" +
+                            "\nDefense: %.1f\nCooldown: %d" +
                             "\nWeakness: %s" +
                             "\nResistance: %s",
                     getName(), getElement(), getMaxHp(), getHp(), getAttack(), getDefense(), getCurrentCd(), getWeakness(), getResistance());
+    }
+
+    double roundToHalf(double value) {
+        return Math.round(value * 2) / 2.0;
     }
 }
