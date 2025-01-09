@@ -17,7 +17,7 @@ public class Game {
 
         while(true) {
             try{
-                Thread.sleep(600);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 continue;
             }
@@ -51,7 +51,7 @@ public class Game {
                 }
                 if(hero.rsMultiplier!=0) {
                     try{
-                        Thread.sleep(400);
+                        Thread.sleep(200);
                     } catch (InterruptedException e) {
                         continue;
                     }                    hero.calculateDamage(enemy , hero.rsMultiplier);
@@ -71,7 +71,7 @@ public class Game {
             }
 
             try{
-                Thread.sleep(300);
+                Thread.sleep(150);
             } catch (InterruptedException e) {
                 continue;
             }            if(enemy.getCurrentCd()==1) {
@@ -87,7 +87,7 @@ public class Game {
             System.out.println("Enemy's remaining HP: " +enemy.getHp());
 
             try{
-                Thread.sleep(300);
+                Thread.sleep(150);
             } catch (InterruptedException e) {
                 continue;
             }
